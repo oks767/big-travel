@@ -27,13 +27,13 @@ export class Presenter {
     list?.insertAdjacentHTML('beforeend', this.data[2]);
   }
 
-  renderListEmpty(listEmpty) {
-    listEmpty = document.querySelector('.trip-events');
-    listEmpty?.insertAdjacentHTML('beforeend', this.data[3]);
-  }
-
   renderList(container) {
     container = document.querySelector('.trip-events');
     container?.insertAdjacentHTML('beforeend', this.data[4]);
+  }
+
+  renderListEmpty(listEmpty) {
+    listEmpty = document.querySelector('.trip-events');
+    listEmpty?.insertAdjacentHTML('beforeend', this.data[3]);
   }
 }
