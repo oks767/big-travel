@@ -10,6 +10,7 @@ export class Presenter {
     this.renderList();
     this.renderFormCreate();
     this.renderListEmpty();
+    this.renderEmpty()
   }
 
   renderFilter(container) {
@@ -27,13 +28,17 @@ export class Presenter {
     list?.insertAdjacentHTML('beforeend', this.data[2]);
   }
 
+  renderList(container) {
+    container = document.querySelector('.trip-events');
+    container?.insertAdjacentHTML('beforeend', this.data[4]);
+  }
+
   renderListEmpty(listEmpty) {
     listEmpty = document.querySelector('.trip-events');
     listEmpty?.insertAdjacentHTML('beforeend', this.data[3]);
   }
-
-  renderList(container) {
-    container = document.querySelector('.trip-events');
-    container?.insertAdjacentHTML('beforeend', this.data[4]);
+  renderEmpty(empty) {
+empty = document.querySelector(".trip-events__item");
+empty?.insertAdjacentHTML('beforeend', this.data[5])
   }
 }
