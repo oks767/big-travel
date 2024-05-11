@@ -1,5 +1,6 @@
 import { Presenter } from './presenter/presenter';
 import createAddEventTemplate from './view/add-event-view';
+import TripPoint from './view/empty'
 import createEventsListTemplate from './view/events-list';
 import createFilterTemplate from './view/filter';
 import createListEmpty from './view/list-empty-view';
@@ -12,6 +13,7 @@ const presenter = new Presenter([
   createListEmpty(),
   createEventsListTemplate(),
   createNewEventButtonTemplate(),
+  TripPoint
 ]);
 
 presenter.render();

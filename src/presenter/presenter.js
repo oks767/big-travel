@@ -10,6 +10,7 @@ export class Presenter {
     this.renderList();
     this.renderFormCreate();
     this.renderListEmpty();
+    this.renderEmpty()
   }
 
   renderFilter(container) {
@@ -35,5 +36,9 @@ export class Presenter {
   renderListEmpty(listEmpty) {
     listEmpty = document.querySelector('.trip-events');
     listEmpty?.insertAdjacentHTML('beforeend', this.data[3]);
+  }
+  renderEmpty(empty) {
+empty = document.querySelector(".trip-events__item");
+empty?.insertAdjacentHTML('beforeend', this.data[5])
   }
 }

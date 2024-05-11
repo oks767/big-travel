@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { TimeFormat } from './const/const.js'
 
 const HOURS_IN_ONE_DAY = 24;
 const MINUTES_IN_ONE_HOUR = 60;
@@ -102,6 +103,36 @@ const getRightDatePlace = () => {
   }
 };
 
+
+let duration = 0.3
+const dateFormat = (date, temp) => dayjs(date).format(temp);
+dayjs.extend(duration);
+ const converDataAfterCompare = (dateA, dateB) => {
+  const timeTo = dateFormat(dateA, "YYYY-MM-DDTHH:mm");
+  const timeFrom = dateFormat(dateB, "YYYY-MM-DDTHH:mm");
+  const compareDates = dayjs(timeTo).diff(dayjs(timeFrom));
+  const days = Math.floor(compareDates / TimeFormat.MILLISECOND_IN_DAY);
+  const hours = Math.floor(
+    (compareDates - days * TimeFormat.MILLISECOND_IN_DAY) /
+      TimeFormat.MILLISECOND_IN_HOUR
+  );
+  const minutes = Math.round(
+    (compareDates -
+      days * TimeFormat.MILLISECOND_IN_DAY -
+      hours * TimeFormat.MILLISECOND_IN_HOUR) /
+      TimeFormat.MILLISECOND_IN_MINUT
+  );
+
+  if (compareDates < TimeFormat.MILLISECOND_IN_HOUR) {
+    return `${minutes}M`;
+  } else if (
+    compareDates > TimeFormat.MILLISECOND_IN_HOUR &&
+    compareDates < TimeFormat.MILLISECOND_IN_DAY
+  ) {
+    return `${hours}H ${minutes}M`;
+  }
+  return `${days}D ${hours}H ${minutes}M`;
+};
 export {
   getRandomArrayElement,
   getRandomElementsArray,
@@ -114,4 +145,6 @@ export {
   humanizeEditEventDays,
   getRightDatePlace,
   renameSpacetoDashAndLowerCase,
+  converDataAfterCompare,
+  dateFormat
 };
