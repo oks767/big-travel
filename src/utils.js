@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { TimeFormat } from './const/const.js'
+import duration from "dayjs/plugin/duration";
 
 const HOURS_IN_ONE_DAY = 24;
 const MINUTES_IN_ONE_HOUR = 60;
@@ -104,7 +105,7 @@ const getRightDatePlace = () => {
 };
 
 
-let duration = 0.3
+
 const dateFormat = (date, temp) => dayjs(date).format(temp);
 dayjs.extend(duration);
  const converDataAfterCompare = (dateA, dateB) => {
