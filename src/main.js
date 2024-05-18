@@ -1,19 +1,24 @@
-import { Presenter } from './presenter/presenter';
-import createAddEventTemplate from './view/add-event-view';
-import TripPoint from './view/empty'
-import createEventsListTemplate from './view/events-list';
-import createFilterTemplate from './view/filter';
-import createListEmpty from './view/list-empty-view';
-import createNewEventButtonTemplate from './view/new-event-button-view';
-import createSortTemplate from './view/sort';
-const presenter = new Presenter([
-  createFilterTemplate(),
-  createSortTemplate(),
-  createAddEventTemplate(),
-  createListEmpty(),
-  createEventsListTemplate(),
-  createNewEventButtonTemplate(),
-  TripPoint
-]);
+import FiltersFormView from './views/filters_form/filters-form-view.js';
+import RoutePresenter from './presenters/route-presenter.js';
+import {render} from './framework/render.js';
+import PointsModel from './models/points-model.js';
+import OffersModel from './models/offers-model.js';
+import {getOffers} from './mock/offers.js';
+import {getPoint} from './mock/point.js';
+import TripInfoView from './views/trip_info/trip-info-view.js';
+import NewEventButtonView from './views/new_event_button/new-event-button-view.js';
 
-presenter.render();
+const POINTS_AMOUNT = 3;
+
+const tripMainElement = document.querySelector('.trip-main');
+const pageBodyContainerElement = document.querySelector('main .page-body__container');
+
+const pointsModel = new PointsModel(POINTS_AMOUNT, getPoint);
+const offersModel = new OffersModel(getOffers());
+const routePresenter = new RoutePresenter(pageBodyContainerElement, pointsModel, offersModel);
+
+render(new TripInfoView(), tripMainElement);
+render(new FiltersFormView(), tripMainElement);
+render(new NewEventButtonView(), tripMainElement);
+
+routePresenter.init();
