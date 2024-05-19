@@ -1,25 +1,12 @@
-import {humanizeDateMonthDay} from '../../utils.js';
+import {humanizeDateMonthDay} from '../../utils/utils';
 import dayjs from 'dayjs';
 
 const MINUTES_IN_DAY = 1440;
 const MINUTES_IN_HOUR = 60;
 
-const createEventTemplate = (point) => {
-  const {basePrice, isFavorite, type, destination, dateFrom, dateTo} = point;
-  const staticOffers = {
-    'type': 'taxi',
-    'offers': [
-      {
-        'id': 1,
-        'title': 'Upgrade to a business class',
-        'price': 120
-      }, {
-        'id': 2,
-        'title': 'Choose the radio station',
-        'price': 60
-      }
-    ]
-  };
+const createEventTemplate = (point, allOffers) => {
+  const {basePrice, isFavorite, type, destination, dateFrom, dateTo, offers} = point;
+
   const dateFromToDifference = dayjs(`${dateFrom}`);
   const dateToToDifference = dayjs(`${dateTo}`);
   const timeDaysDifference = dateToToDifference.diff(dateFromToDifference, 'd');
@@ -56,29 +43,56 @@ const createEventTemplate = (point) => {
       if (extraMinutes > MINUTES_IN_HOUR) {
         const extraHours = Math.floor(extraMinutes / MINUTES_IN_HOUR);
         return extraMinutes - (extraHours * MINUTES_IN_HOUR);
-      } else {
-        return extraMinutes;
       }
+      return extraMinutes;
     }
   };
   const restMinutesAmount = getRestMinutes(timeDaysDifference, timeMinutesDifference);
 
   //Функция, составляющая необходимый формат даты для элемента с классом 'event__duration'
   const buildDateFormat = (daysDiff, hoursDiff, minutesDiff) => {
+    if (timeDaysDifference === undefined && restHoursAmount === undefined && restMinutesAmount === undefined) {
+      return '';
+    }
     if (daysDiff === 0 && hoursDiff === 0) {
       return `${(restMinutesAmount.toString()).padStart(2, '0')}M`;
     }
     if (daysDiff === 0) {
       return `${(hoursDiff.toString()).padStart(2, '0')}H ${(minutesDiff.toString()).padStart(2, '0')}M`;
-    } else {
+    } else if (timeDaysDifference !== undefined && restHoursAmount !== undefined && restMinutesAmount !== undefined) {
       return `${(timeDaysDifference.toString()).padStart(2, '0')}D ${(restHoursAmount.toString()).padStart(2, '0')}H ${(restMinutesAmount.toString()).padStart(2, '0')}M`;
     }
   };
   const eventDuration = buildDateFormat(timeDaysDifference, restHoursAmount, restMinutesAmount);
 
   const favoriteClassName = isFavorite
-    ? 'event__favorite-btn event__favorite-btn--active'
-    : 'event__favorite-btn';
+    ? ' event__favorite-btn--active'
+    : '';
+
+  const destinationName = destination === undefined
+    ? ''
+    : destination.name;
+
+  //Функция создания разметки выбранных пользователем офферов для текущего типа события
+  const createPickedOffrersTemplate = (allAvailableOffrers, currentType, pointOffers) => {
+    //Находим объект, совпадающий по типу с текущим типом события и массивом всех доступных офферов к данному типу события
+    const pointWithCurrentType = allAvailableOffrers.find((currentOffer) => currentType === currentOffer.type);
+    //Формирование шаблона всех доступных дополнительных функций по полученным данным.
+    const resultTemplate = pointWithCurrentType.offers.map((offer) => {
+      const checkedOffer = pointOffers.includes(offer.id);
+      if (checkedOffer) {
+        return `<li class="event__offer">
+          <span class="event__offer-title">${offer.title}</span>
+          +€&nbsp;
+          <span class="event__offer-price">${offer.price}</span>
+        </li>`;
+      }
+      return '';
+    }).join('');
+    return resultTemplate;
+  };
+
+  const pickedOffrersTemplate = createPickedOffrersTemplate(allOffers, type, offers);
 
   return (
     `<li class="trip-events__item">
@@ -87,7 +101,7 @@ const createEventTemplate = (point) => {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${destination.name}</h3>
+        <h3 class="event__title">${type} ${destinationName}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time" datetime="${dayjs(dateFrom).format('YYYY-MM-DDTHH:mm')}">${dayjs(dateFrom).format('HH:mm')}</time>
@@ -101,18 +115,10 @@ const createEventTemplate = (point) => {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          <li class="event__offer">
-            <span class="event__offer-title">${staticOffers.offers[0].title}</span>
-            +€&nbsp;
-            <span class="event__offer-price">${staticOffers.offers[0].price}</span>
-          </li>
-          <li class="event__offer">
-            <span class="event__offer-title">${staticOffers.offers[1].title}</span>
-            +€&nbsp;
-            <span class="event__offer-price">${staticOffers.offers[1].price}</span>
-          </li>
+          ${pickedOffrersTemplate}
+
         </ul>
-        <button class="${favoriteClassName}" type="button">
+        <button class="event__favorite-btn${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>
           <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
             <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"></path>
