@@ -1,12 +1,25 @@
-import {humanizeDateMonthDay} from '../../utils/utils';
+import {humanizeDateMonthDay} from '../../utils';
 import dayjs from 'dayjs';
 
 const MINUTES_IN_DAY = 1440;
 const MINUTES_IN_HOUR = 60;
 
-const createEventTemplate = (point, allOffers) => {
-  const {basePrice, isFavorite, type, destination, dateFrom, dateTo, offers} = point;
-
+const createEventTemplate = (point) => {
+  const {basePrice, isFavorite, type, destination, dateFrom, dateTo} = point;
+  const staticOffers = {
+    'type': 'taxi',
+    'offers': [
+      {
+        'id': 1,
+        'title': 'Upgrade to a business class',
+        'price': 120
+      }, {
+        'id': 2,
+        'title': 'Choose the radio station',
+        'price': 60
+      }
+    ]
+  };
   const dateFromToDifference = dayjs(`${dateFrom}`);
   const dateToToDifference = dayjs(`${dateTo}`);
   const timeDaysDifference = dateToToDifference.diff(dateFromToDifference, 'd');
@@ -43,8 +56,9 @@ const createEventTemplate = (point, allOffers) => {
       if (extraMinutes > MINUTES_IN_HOUR) {
         const extraHours = Math.floor(extraMinutes / MINUTES_IN_HOUR);
         return extraMinutes - (extraHours * MINUTES_IN_HOUR);
+      } else {
+        return extraMinutes;
       }
-      return extraMinutes;
     }
   };
   const restMinutesAmount = getRestMinutes(timeDaysDifference, timeMinutesDifference);
@@ -73,27 +87,6 @@ const createEventTemplate = (point, allOffers) => {
     ? ''
     : destination.name;
 
-  //Функция создания разметки выбранных пользователем офферов для текущего типа события
-  const createPickedOffrersTemplate = (allAvailableOffrers, currentType, pointOffers) => {
-    //Находим объект, совпадающий по типу с текущим типом события и массивом всех доступных офферов к данному типу события
-    const pointWithCurrentType = allAvailableOffrers.find((currentOffer) => currentType === currentOffer.type);
-    //Формирование шаблона всех доступных дополнительных функций по полученным данным.
-    const resultTemplate = pointWithCurrentType.offers.map((offer) => {
-      const checkedOffer = pointOffers.includes(offer.id);
-      if (checkedOffer) {
-        return `<li class="event__offer">
-          <span class="event__offer-title">${offer.title}</span>
-          +€&nbsp;
-          <span class="event__offer-price">${offer.price}</span>
-        </li>`;
-      }
-      return '';
-    }).join('');
-    return resultTemplate;
-  };
-
-  const pickedOffrersTemplate = createPickedOffrersTemplate(allOffers, type, offers);
-
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -115,8 +108,16 @@ const createEventTemplate = (point, allOffers) => {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          ${pickedOffrersTemplate}
-
+          <li class="event__offer">
+            <span class="event__offer-title">${staticOffers.offers[0].title}</span>
+            +€&nbsp;
+            <span class="event__offer-price">${staticOffers.offers[0].price}</span>
+          </li>
+          <li class="event__offer">
+            <span class="event__offer-title">${staticOffers.offers[1].title}</span>
+            +€&nbsp;
+            <span class="event__offer-price">${staticOffers.offers[1].price}</span>
+          </li>
         </ul>
         <button class="event__favorite-btn${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>

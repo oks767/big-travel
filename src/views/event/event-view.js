@@ -3,16 +3,14 @@ import {createEventTemplate} from './event.tpl';
 
 export default class EventView extends AbstractView{
   #point = null;
-  #offers = null;
 
-  constructor(point, offers) {
+  constructor(point) {
     super();
     this.#point = point;
-    this.#offers = offers;
   }
 
   get template() {
-    return createEventTemplate(this.#point, this.#offers);
+    return createEventTemplate(this.#point);
   }
 
   setOpenEditFormClickHandler(callback) {
