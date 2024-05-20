@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import he from "he";
 import {getOffers} from '../../mock/offers';
-import he from 'he';
+
 
 const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 const createEditEventFormTemplate = (point, allOffers) => {
