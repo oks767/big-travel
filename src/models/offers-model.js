@@ -1,6 +1,7 @@
 import Observable from '../framework/observable';
 import {UpdateType} from '../consts';
 
+
 export default class OffersModel extends Observable{
   #offersApiService = null;
   #offers = [];

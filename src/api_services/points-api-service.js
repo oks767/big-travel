@@ -12,12 +12,13 @@ export default class PointsApiService extends ApiService {
     return this._load({url: 'points'}).then(ApiService.parseResponse);
   }
 
-  updatePoint = async (point) => {
+  updatePoint = async (pointId) => {
     const response = await this._load({
-      url: `points/${point.id}`,
+      url: `/big-trip/points/${pointId.id}`,
       method: Method.PUT,
-      body: JSON.stringify(this.#adaptToServer(point)),
-      headers: new Headers({'Content-Type': 'application/json'}),
+      mode: 'cors',
+      body: JSON.stringify(this.#adaptToServer(pointId.id)),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
     });
 
     const parsedResponse = await ApiService.parseResponse(response);
@@ -26,12 +27,13 @@ export default class PointsApiService extends ApiService {
   };
 
   //Метод для адаптирования наименований ключей. Данные, которые отправляются на сервер.
-  #adaptToServer = (point) => {
-    const adaptedPoint = {...point,
-      'base_price': Number(point.basePrice),
-      'date_from': point.dateFrom,
-      'date_to': point.dateTo,
-      'is_favorite': point.isFavorite,
+  #adaptToServer = (pointId) => {
+    const adaptedPoint = {
+      ...pointId,
+      'base_price': Number(pointId.basePrice),
+      'date_from': pointId.dateFrom,
+      'date_to': pointId.dateTo,
+      'is_favorite': pointId.isFavorite,
     };
 
     delete adaptedPoint.basePrice;

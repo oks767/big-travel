@@ -10,8 +10,8 @@ import PointsApiService from './services/api/points-api-service';
 import OffersApiService from './services/api/offers-api-service';
 import DestinationsApiService from './services/api/destinations-api-service';
 
-const AUTHORIZATION = 'Basic ljsu4yhgj4i4u4u1';
-const END_POINT = 'https://17.ecmascript.pages.academy/big-trip';
+const AUTHORIZATION = 'Basic ljsu4yhgj4i4u4a4';
+const END_POINT = 'https://20.objects.htmlacademy.pro/big-trip';
 
 const tripMainElement = document.querySelector('.trip-main');
 const pageBodyContainerElement = document.querySelector('main .page-body__container');
