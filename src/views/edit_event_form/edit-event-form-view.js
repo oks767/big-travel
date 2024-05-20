@@ -5,7 +5,6 @@ import 'flatpickr/dist/flatpickr.min.css';
 import dayjs from 'dayjs';
 
 
-
 const EMPTY_POINT = {
   'id': null,
   'type': '',
