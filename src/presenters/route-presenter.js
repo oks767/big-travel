@@ -24,9 +24,9 @@ export default class RoutePresenter {
   #LOADING = 'loading';
 
   #sortAndEventsContainer = new SortAndEventsContainerView(); // section class="trip-events"
-  #eventsListContainer = new EventsListView();                // ul      class="trip-events__list"
-  #sortComponent = null;                                      // form    class="trip-events__trip-sort  trip-sort"
-  #noPoinstComponent = null;                                  // p       class="trip-events__msg">
+  #eventsListContainer = new EventsListView(); // ul      class="trip-events__list"
+  #sortComponent = null; // form    class="trip-events__trip-sort  trip-sort"
+  #noPoinstComponent = null; // p       class="trip-events__msg">
   #loadingComponent = new EventsListEmptyView(this.#LOADING);
 
   #pointPresenters = new Map();
@@ -74,7 +74,7 @@ export default class RoutePresenter {
   }
 
   get destinations() {
-    return  this.#destinationsModel.destinations;
+    return this.#destinationsModel.destinations;
   }
 
   init () {
@@ -92,7 +92,8 @@ export default class RoutePresenter {
     this.#pointNewPresenter.destroy();
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
   };
-//Метод для получения отфильтрованных точек маршрута ТОЛЬКО ПО ДАТЕ
+
+  //Метод для получения отфильтрованных точек маршрута ТОЛЬКО ПО ДАТЕ
   //Необходимо для того, чтобы элементы в массиве не перемешивались при передаче их в tripInfoElement
   get filteredPoints() {
     this.#filterType = this.#filterModel.filter;
@@ -106,6 +107,7 @@ export default class RoutePresenter {
 
     return filteredPoints;
   }
+
   //Метод-обработчик для отслеживания обновления View (т.е. при внесении изменений пользователем в браузере)// Здесь будем вызывать обновление модели.
   // actionType - действие пользователя, нужно чтобы понять, какой метод модели вызвать
   // updateType - тип изменений, нужно чтобы понять, что после нужно обновить

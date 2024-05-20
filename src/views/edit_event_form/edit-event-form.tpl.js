@@ -5,7 +5,7 @@ const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 's
 const DEFAULT_OFFERS_AMOUT = 1;
 
 const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
-  const {basePrice, type, destination, dateFrom, dateTo, offers, id, isDisabled, isSaving, isDeleting} = point;
+  const {type, destination, dateFrom, dateTo, offers, id, isDisabled, isSaving, isDeleting} = point;
 
   //Функция для создания списка всех возможных городов (datalist)
   const createDatalistTemplate = (destinations) => {
