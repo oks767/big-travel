@@ -1,35 +1,27 @@
 import {remove, render, RenderPosition} from '../framework/render';
 import EditEventFormView from '../views/edit_event_form/edit-event-form-view';
+import {nanoid} from 'nanoid';
 import {UserAction, UpdateType} from '../consts';
 
 export default class PointNewPresenter {
   #eventsListContainer = null;
   #changeData = null;
-  #offers = null;
-  #destinations = null;
   #editPointFormComponent = null;
   #destroyCallback = null;
 
-  constructor(eventsListContainer, changeData, offers, destinations) {
+  constructor(eventsListContainer, changeData) {
     this.#eventsListContainer = eventsListContainer;
     this.#changeData = changeData;
-    this.#offers = offers;
-    this.#destinations = destinations;
   }
 
-  init (callback, allOffers, allDestinations) {
+  init (callback) {
     this.#destroyCallback = callback;
 
     if (this.#editPointFormComponent !== null) {
       return;
     }
 
-    if (!this.#offers.length) {
-      this.#offers = allOffers;
-      this.#destinations = allDestinations;
-    }
-
-    this.#editPointFormComponent = new EditEventFormView(undefined, this.#offers, this.#destinations);
+    this.#editPointFormComponent = new EditEventFormView();
     this.#editPointFormComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#editPointFormComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
@@ -51,42 +43,15 @@ export default class PointNewPresenter {
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
-  setSaving = (update, offers, destinations) => {
-    this.#editPointFormComponent.updateElement({
-      point: {
-        ...update,
-        isDisabled: true,
-        isSaving: true,
-      },
-      offers: [...offers,],
-      destinations: [...destinations,],
-    });
-  };
-
-  setAborting = (update, offers, destinations) => {
-    const resetFormState = () => {
-      this.#editPointFormComponent.updateElement({
-        point: {
-          ...update,
-          isDisabled: false,
-          isSaving: false,
-          isDeleting: false,
-        },
-        offers: [...offers,],
-        destinations: [...destinations,],
-      });
-    };
-
-    this.#editPointFormComponent.shake(resetFormState);
-  };
-
   #handleFormSubmit = (update) => {
     this.#changeData(
       UserAction.ADD_POINT,
       UpdateType.MINOR,
-      { ...update.point,},
+      //при создании новой точки, ей нужно присваивать id
+      {id: nanoid(), ...update.point,},
       { ...update.offers,},
     );
+    this.destroy();
   };
 
   #handleDeleteClick = () => {
