@@ -5,7 +5,7 @@ export default class TripInfoView extends AbstractView {
   #points = null;
   #offers = null;
 
-  
+
   constructor(points, offers) {
     super();
     this.#points = points;
@@ -13,7 +13,7 @@ export default class TripInfoView extends AbstractView {
   }
 
   get template() {
-    
+
     return createTripInfoTemplate(this.#points, this.#offers);
   }
 }

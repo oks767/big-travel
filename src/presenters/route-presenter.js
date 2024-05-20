@@ -9,9 +9,9 @@ import PointNewPresenter from './point-new-presenter';
 import {filter} from '../utils/filter';
 import {SortType, UserAction, UpdateType, FilterType} from '../consts';
 import {sortPriceDown, sortTimeDown, sortDateDown} from '../utils/utils';
-import MainInnerContainerView from "../views/main_inner_container/main-inner-container-view";
-import TripInfoView from "../views/trip_info/trip-info-view";
-import MainView from "../views/main/main-view";
+import MainInnerContainerView from '../views/main_inner_container/main-inner-container-view';
+import TripInfoView from '../views/trip_info/trip-info-view';
+import MainView from '../views/main/main-view';
 
 const TimeLimit = {
   LOWER_LIMIT: 200,
@@ -24,7 +24,7 @@ export default class RoutePresenter {
   #offersModel = null;
   #destinationsModel = null;
   #filterModel = null;
-  #LOADING = "loading";
+  #LOADING = 'loading';
   #tripMainElement = null;
   #tripInfoElement = null;
   #mainContainer = new MainView();
@@ -94,9 +94,11 @@ export default class RoutePresenter {
   get destinations() {
     return this.#destinationsModel.destinations;
   }
-  init() {
-    this.#renderBoard();
-  }
+
+  // init() {
+  //   this.#renderBoard();
+  // }
+
   //Метод для получения отфильтрованных точек маршрута ТОЛЬКО ПО ДАТЕ
   //Необходимо для того, чтобы элементы в массиве не перемешивались при передаче их в tripInfoElement
   get filteredPoints() {
@@ -111,6 +113,7 @@ export default class RoutePresenter {
 
     return filteredPoints;
   }
+
   init() {
     this.#renderSortAndEventsBoard();
   }
@@ -203,7 +206,7 @@ export default class RoutePresenter {
         this.#renderSortAndEventsBoard();
         break;
       default:
-        throw new Error("The transferred update type does not exist");
+        throw new Error('The transferred update type does not exist');
     }
   };
 
@@ -232,15 +235,17 @@ export default class RoutePresenter {
   #renderPointsOrInfoContainer() {
     render(this.#eventsListContainer, this.#sortAndEventsContainer.element);
   }
+
   //Метод отрисовки компонента дополнительной информацией в header
   #renderTripInfo() {
     this.#tripInfoElement = new TripInfoView(this.filteredPoints, this.offers);
     render(
       this.#tripInfoElement,
       this.#tripMainElement,
-      RenderPosition.AFTERBEGIN
+      // RenderPosition.AFTERBEGIN
     );
   }
+
   //Метод отрисовки представления (доски), т.е. всей страницы
   #renderBoard() {
     if (this.#tripInfoElement) {
@@ -253,9 +258,10 @@ export default class RoutePresenter {
     render(this.#sortAndEventsContainer, this.#mainInnerContainer.element);
     if (this.#isLoading) {
       this.#renderLoading();
-      return;
+
     }
   }
+
   //Метод отрисовки компонента точки маршрута
   #renderPoint(pointId, offers, destinations) {
     const pointPresenter = new PointPresenter(

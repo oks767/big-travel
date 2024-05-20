@@ -16,9 +16,9 @@ export default class PointsApiService extends ApiService {
     const response = await this._load({
       url: `/big-trip/points/${pointId.id}`,
       method: Method.PUT,
-      mode: 'cors', 
+      mode: 'cors',
       body: JSON.stringify(this.#adaptToServer(pointId.id)),
-      headers: new Headers({ "Content-Type": "application/json" }),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
     });
 
     const parsedResponse = await ApiService.parseResponse(response);
