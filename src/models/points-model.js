@@ -26,7 +26,7 @@ export default class PointsModel extends Observable {
   };
 
   updatePoint = async (updateType, update) => {
-    const index = this.#points.findIndex((point) => point.id === update.id);
+    const index = this.#points.findIndex((pointId) => pointId.id === update.id);
 
     if (index === -1) {
       throw new Error('Can\'t update unexisting point');
@@ -58,7 +58,7 @@ export default class PointsModel extends Observable {
   };
 
   deletePoint = async (updateType, update) => {
-    const index = this.#points.findIndex((point) => point.id === update.id);
+    const index = this.#points.findIndex((pointId) => pointId.id === update.id);
 
     if (index === -1) {
       throw new Error('Can\'t delete unexisting point');
@@ -78,12 +78,13 @@ export default class PointsModel extends Observable {
   };
 
   //Метод для адаптирования наименований ключей. Данные, которые приходят с сервера.
-  #adaptToClient = (point) => {
-    const adaptedPoint = {...point,
-      basePrice: point['base_price'],
-      dateFrom: point['date_from'],
-      dateTo: point['date_to'],
-      isFavorite: point['is_favorite'],
+  #adaptToClient = (pointId) => {
+    const adaptedPoint = {
+      ...pointId,
+      basePrice: pointId["base_price"],
+      dateFrom: pointId["date_from"],
+      dateTo: pointId["date_to"],
+      isFavorite: pointId["is_favorite"],
     };
 
     delete adaptedPoint['base_price'];

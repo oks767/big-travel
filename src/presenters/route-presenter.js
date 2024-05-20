@@ -186,10 +186,10 @@ export default class RoutePresenter {
   }
 
   //Метод отрисовки компонента точки маршрута
-  #renderPoint (point, offers, destinations) {
+  #renderPoint (pointId, offers, destinations) {
     const pointPresenter = new PointPresenter(this.#eventsListContainer.element, this.#handleViewAction, this.#handleModeChange);
-    pointPresenter.init(point, offers, destinations);
-    this.#pointPresenters.set(point.id, pointPresenter);
+    pointPresenter.init(pointId, offers, destinations);
+    this.#pointPresenters.set(pointId.id, pointPresenter);
   }
 
   #renderLoading () {
@@ -237,7 +237,7 @@ export default class RoutePresenter {
     }
 
     this.points.forEach((element, index) => {
-      this.#renderPoint(this.points[index], this.offers, this.destinations);
+      this.#renderPoint(this?.points[index], this?.offers, this?.destinations);
     });
   }
 }
