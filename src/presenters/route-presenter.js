@@ -92,7 +92,20 @@ export default class RoutePresenter {
     this.#pointNewPresenter.destroy();
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
   };
+//Метод для получения отфильтрованных точек маршрута ТОЛЬКО ПО ДАТЕ
+  //Необходимо для того, чтобы элементы в массиве не перемешивались при передаче их в tripInfoElement
+  get filteredPoints() {
+    this.#filterType = this.#filterModel.filter;
+    const points = this.#pointsModel.points;
+    const filteredPoints = filter[this.#filterType](points);
 
+    switch (SortType.DAY) {
+      case SortType.DAY:
+        return filteredPoints.sort(sortDateDown);
+    }
+
+    return filteredPoints;
+  }
   //Метод-обработчик для отслеживания обновления View (т.е. при внесении изменений пользователем в браузере)// Здесь будем вызывать обновление модели.
   // actionType - действие пользователя, нужно чтобы понять, какой метод модели вызвать
   // updateType - тип изменений, нужно чтобы понять, что после нужно обновить
