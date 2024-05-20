@@ -48,7 +48,7 @@ const createTripInfoTemplate = (allPoints, allOffers) => {
     }
 
     if (cities.length > MAX_HIDE_AMOUNT) {
-      const resultTemplate = `${cities[cities.length-1]}-...-${cities[0]}`;
+      const resultTemplate = `${cities[cities.length - 1]}-...-${cities[0]}`;
       return resultTemplate;
     }
 
@@ -63,7 +63,7 @@ const createTripInfoTemplate = (allPoints, allOffers) => {
     }
 
     if (pointsAmount > 0) {
-      const startDate = dayjs(pointsForDuration[pointsForDuration.length-1].dateFrom);
+      const startDate = dayjs(pointsForDuration[pointsForDuration.length - 1].dateFrom);
       const endDate = dayjs(pointsForDuration[0].dateTo);
       const monthsDeffirence = startDate.format('M') - endDate.format('M');
 

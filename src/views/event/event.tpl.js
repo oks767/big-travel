@@ -15,13 +15,13 @@ const createEventTemplate = (point, allOffers) => {
   const getRestHours = (daysDifference, minutesDifference) => {
     if (daysDifference > 0) {
       const restMinutes = timeMinutesDifference - (daysDifference * MINUTES_IN_DAY);
-      return Math.round(restMinutes/MINUTES_IN_HOUR);
+      return Math.round(restMinutes / MINUTES_IN_HOUR);
     }
     if (minutesDifference === MINUTES_IN_HOUR) {
       return 1;
     }
     if (minutesDifference > MINUTES_IN_HOUR) {
-      const restMinutes = Math.floor(minutesDifference/MINUTES_IN_HOUR);
+      const restMinutes = Math.floor(minutesDifference / MINUTES_IN_HOUR);
       return restMinutes;
     }
     if (minutesDifference < MINUTES_IN_HOUR) {
