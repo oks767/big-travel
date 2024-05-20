@@ -1,9 +1,10 @@
 import AbstractStatefulView from '../../framework/view/abstract-stateful-view';
 import {createEditEventFormTemplate} from './edit-event-form.tpl';
 import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 import dayjs from 'dayjs';
 
-import 'flatpickr/dist/flatpickr.min.css';
+
 
 const EMPTY_POINT = {
   'id': null,
