@@ -28,8 +28,8 @@ export default class PointPresenter {
     this.#changeMode = changeMode;
   }
 
-  init (pointId, offers, destinations) {
-    this.#point = pointId;
+  init (point, offers, destinations) {
+    this.#point = point;
     this.#offers = offers;
     this.#destinations = destinations;
 

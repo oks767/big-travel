@@ -263,7 +263,7 @@ export default class EditEventFormView extends AbstractStatefulView {
 
   #setDateFromPicker = () => {
     if (dayjs(this._state.point.dateFrom).diff(this._state.point.dateTo) > 0) {
-      this._state.point.dateTo = this._state.point.dateFrom;
+      this._state.point.dateTo =this._state.point.dateFrom;
     }
     this.#datepickerFrom = flatpickr(
       this.element.querySelector('#event-start-time-1'),
