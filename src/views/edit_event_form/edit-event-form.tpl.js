@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import he from "he";
+import he from 'he';
 import {getOffers} from '../../mock/offers';
 
 
