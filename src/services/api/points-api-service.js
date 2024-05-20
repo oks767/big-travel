@@ -12,13 +12,12 @@ export default class PointsApiService extends ApiService {
     return this._load({url: 'points'}).then(ApiService.parseResponse);
   }
 
-  updatePoint = async (pointId) => {
+  updatePoint = async (point) => {
     const response = await this._load({
-      url: `points/${pointId.id}`,
+      url: `points/${point.id}`,
       method: Method.PUT,
-      mode: 'cors',
-      body: JSON.stringify(this.#adaptToServer(pointId.id)),
-      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(this.#adaptToServer(point)),
+      headers: new Headers({'Content-Type': 'application/json'}),
     });
 
     const parsedResponse = await ApiService.parseResponse(response);
@@ -30,9 +29,8 @@ export default class PointsApiService extends ApiService {
     const response = await this._load({
       url: 'points',
       method: Method.POST,
-      mode: 'cors',
       body: JSON.stringify(this.#adaptToServer(point)),
-      headers: new Headers({ 'Content-Type': 'application/json' }),
+      headers: new Headers({'Content-Type': 'application/json'}),
     });
 
     const parsedResponse = await ApiService.parseResponse(response);
@@ -40,9 +38,9 @@ export default class PointsApiService extends ApiService {
     return parsedResponse;
   };
 
-  deletePoint = async (pointId) => {
+  deletePoint = async (point) => {
     const response = await this._load({
-      url: `points/${pointId.id}`,
+      url: `points/${point.id}`,
       method: Method.DELETE,
     });
 
@@ -50,12 +48,12 @@ export default class PointsApiService extends ApiService {
   };
 
   //Метод для адаптирования наименований ключей. Данные, которые отправляются на сервер.
-  #adaptToServer = (pointId) => {
-    const adaptedPoint = {...pointId,
-      'base_price': Number(pointId.basePrice),
-      'date_from': pointId.dateFrom,
-      'date_to': pointId.dateTo,
-      'is_favorite': pointId.isFavorite,
+  #adaptToServer = (point) => {
+    const adaptedPoint = {...point,
+      'base_price': Number(point.basePrice),
+      'date_from': point.dateFrom,
+      'date_to': point.dateTo,
+      'is_favorite': point.isFavorite,
     };
 
     delete adaptedPoint.basePrice;

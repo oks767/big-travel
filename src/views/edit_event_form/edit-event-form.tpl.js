@@ -5,7 +5,7 @@ const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 's
 const DEFAULT_OFFERS_AMOUT = 1;
 
 const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
-  const { type, destination, dateFrom, dateTo, offers, id, isDisabled, isSaving, isDeleting} = point;
+  const {type, destination, dateFrom, dateTo, offers, id, isDisabled, isSaving, isDeleting} = point;
 
   //Функция для создания списка всех возможных городов (datalist)
   const createDatalistTemplate = (destinations) => {
@@ -96,7 +96,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
       return resultTemplate;
     } else {
       const pointWithCurrentType = allAvailableOffrers[0];
-      const resultTemplate = pointWithCurrentType?.offers.map((offer) => {
+      const resultTemplate = pointWithCurrentType.offers.map((offer) => {
         const checkedOffer = pointOffers.includes(offer.id) ? 'checked' : '';
         return `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.id}" type="checkbox" name="event-offer-${offer.id}" ${checkedOffer} ${isDisabled ? 'disabled' : ''}>
