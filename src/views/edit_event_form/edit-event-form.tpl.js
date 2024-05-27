@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import he from "he";
 
 const TYPES = [
   "taxi",
@@ -39,7 +38,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
 
   const getDestinationName = (currentDestination) => {
     if (destination.name !== null) {
-      return he.encode(currentDestination.name);
+      return currentDestination.name;
     }
     return "";
   };
@@ -142,7 +141,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
       (currentOffer) => currentType === currentOffer.type
     );
     //Формирование шаблона всех доступных дополнительных функций по полученным данным. Выставление checked совпавшим по id опциям
-    const resultTemplate = pointWithCurrentType.offers
+    const resultTemplate = pointWithCurrentType?.offers
       .map((offer) => {
         const checkedOffer = pointOffers.includes(offer.id) ? "checked" : "";
         return `<div class="event__offer-selector">
@@ -176,7 +175,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
     const pointWithCurrentType = allAvailableOffrers.find(
       (currentOffer) => currentType === currentOffer.type
     );
-    if (pointWithCurrentType.offers.length !== 0) {
+    if (pointWithCurrentType?.offers.length !== 0) {
       return `
       <section class="event__section  event__section--offers">
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
@@ -246,8 +245,8 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               <span class="visually-hidden">Price</span>
               €
             </label>
-            <input class="event__input event__input--price" id="event-price-1" type="number" min="0" name="event-price" value="${he.encode(
-              String(basePrice)
+            <input class="event__input event__input--price" id="event-price-1" type="number" min="0" name="event-price" value="${
+              basePrice}
             )}" ${isDisabled ? "disabled" : ""} required>
           </div>
 
