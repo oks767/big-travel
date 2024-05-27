@@ -1,15 +1,15 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 const TYPES = [
-  "taxi",
-  "bus",
-  "train",
-  "ship",
-  "drive",
-  "flight",
-  "check-in",
-  "sightseeing",
-  "restaurant",
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant',
 ];
 
 const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
@@ -27,11 +27,11 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
   } = point;
   const createButtonName = (idNumber, deleting) => {
     if (!idNumber) {
-      return "Cancel";
+      return 'Cancel';
     } else if (!deleting) {
-      return "Delete";
+      return 'Delete';
     }
-    return "Deleting...";
+    return 'Deleting...';
   };
 
   const buttonName = createButtonName(id, isDeleting);
@@ -40,7 +40,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
     if (destination.name !== null) {
       return currentDestination.name;
     }
-    return "";
+    return '';
   };
 
   //Функция для создания списка всех возможных городов (datalist)
@@ -50,7 +50,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
         (destinationFromAll) =>
           `<option value="${destinationFromAll.name}"></option>`
       )
-      .join("");
+      .join('');
     return list;
   };
   const datalistTemplate = createDatalistTemplate(allDestinations);
@@ -75,7 +75,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               (image) =>
                 `<img class="event__photo" src="${image.src}" alt="${image.description}">`
             )
-            .join("");
+            .join('');
 
           const resultImagesTemplate =
             images.length !== 0
@@ -84,11 +84,11 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
                   ${imagesForContainer}
                 </div>
               </div>`
-              : "";
+              : '';
 
           return resultImagesTemplate;
         }
-        return "";
+        return '';
       };
       const picturesForDestinationTemplate =
         createPicturesForDestinationTemplate(pictures);
@@ -96,17 +96,17 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
       const resultTemplate = `<section class="event__section  event__section--destination">
         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
         <p class="event__destination-description">${
-          destinationWithCityName?.description !== undefined
-            ? destinationWithCityName?.description
-            : ""
-        }</p>
+  destinationWithCityName?.description !== undefined
+    ? destinationWithCityName?.description
+    : ''
+}</p>
         ${picturesForDestinationTemplate}
       </section>`;
 
       return resultTemplate;
     }
 
-    return "";
+    return '';
   };
   const destinationSectionTemplate = createDestinationSectionTemplate(
     destination,
@@ -120,12 +120,12 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
         (currentType) =>
           `<div class="event__type-item">
         <input id="event-type-${currentType}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${currentType}" ${
-            currentType === typeOfEvent ? "checked" : ""
-          } ${isDisabled ? "disabled" : ""}>
+  currentType === typeOfEvent ? 'checked' : ''
+} ${isDisabled ? 'disabled' : ''}>
         <label class="event__type-label  event__type-label--${currentType}" for="event-type-${currentType}">${currentType}</label>
       </div>`
       )
-      .join("");
+      .join('');
     return typeItemsForFieldset;
   };
   const typeCheckerTemplate = createTypeCheckerTemplate(type, TYPES);
@@ -143,13 +143,13 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
     //Формирование шаблона всех доступных дополнительных функций по полученным данным. Выставление checked совпавшим по id опциям
     const resultTemplate = pointWithCurrentType?.offers
       .map((offer) => {
-        const checkedOffer = pointOffers.includes(offer.id) ? "checked" : "";
+        const checkedOffer = pointOffers.includes(offer.id) ? 'checked' : '';
         return `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden" id="event-offer-${
-          offer.id
-        }" type="checkbox" name="event-offer-${offer.id}" ${checkedOffer} ${
-          isDisabled ? "disabled" : ""
-        }>
+  offer.id
+}" type="checkbox" name="event-offer-${offer.id}" ${checkedOffer} ${
+  isDisabled ? 'disabled' : ''
+}>
         <label class="event__offer-label" for="event-offer-${offer.id}">
           <span class="event__offer-title">${offer.title}</span>
           +€&nbsp;
@@ -157,7 +157,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
         </label>
       </div>`;
       })
-      .join("");
+      .join('');
     return resultTemplate;
   };
   const availableOffrersTemplate = createAvailableOffrersTemplate(
@@ -186,7 +186,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
       </section>
       `;
     }
-    return "";
+    return '';
   };
   const availableOffrersSectionTemplate = createAvailableOffrersSectionTemplate(
     allOffers,
@@ -203,8 +203,8 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               <img class="event__type-icon" width="17" height="17" src="img/icons/${type}.png" alt="Event type icon">
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox" ${
-              isDisabled ? "disabled" : ""
-            }>
+  isDisabled ? 'disabled' : ''
+}>
 
             <div class="event__type-list">
               <fieldset class="event__type-group">
@@ -219,10 +219,10 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               ${type}
             </label>
             <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${getDestinationName(
-              destination
-            )}" list="destination-list-1" ${
-    isDisabled ? "disabled" : ""
-  } required>
+    destination
+  )}" list="destination-list-1" ${
+  isDisabled ? 'disabled' : ''
+} required>
             <datalist id="destination-list-1">
               ${datalistTemplate}
             </datalist>
@@ -231,13 +231,13 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
           <div class="event__field-group  event__field-group--time">
             <label class="visually-hidden" for="event-start-time-1">From</label>
             <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dayjs(
-              dateFrom
-            ).format("DD/MM/YY HH:mm")}" ${isDisabled ? "disabled" : ""}>
+    dateFrom
+  ).format('DD/MM/YY HH:mm')}" ${isDisabled ? 'disabled' : ''}>
             —
             <label class="visually-hidden" for="event-end-time-1">To</label>
             <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dayjs(
-              dateTo
-            ).format("DD/MM/YY HH:mm")}" ${isDisabled ? "disabled" : ""}>
+    dateTo
+  ).format('DD/MM/YY HH:mm')}" ${isDisabled ? 'disabled' : ''}>
           </div>
 
           <div class="event__field-group  event__field-group--price">
@@ -246,22 +246,22 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               €
             </label>
             <input class="event__input event__input--price" id="event-price-1" type="number" min="0" name="event-price" value="${
-              basePrice}
-            )}" ${isDisabled ? "disabled" : ""} required>
+  basePrice}
+            )}" ${isDisabled ? 'disabled' : ''} required>
           </div>
 
           <button class="event__save-btn  btn  btn--blue" type="submit" ${
-            isDisabled ? "disabled" : ""
-          }>
-            ${isSaving ? "Saving..." : "Save"}
+  isDisabled ? 'disabled' : ''
+}>
+            ${isSaving ? 'Saving...' : 'Save'}
           </button>
           <button class="event__reset-btn" type="reset" ${
-            isDisabled ? "disabled" : ""
-          }>
+  isDisabled ? 'disabled' : ''
+}>
             ${buttonName}
           <button class="event__rollup-btn" type="button" style="display:${
-            id === undefined ? " none" : " block"
-          }">
+  id === undefined ? ' none' : ' block'
+}">
             <span class="visually-hidden">Open event</span>
           </button>
         </header>
