@@ -108,6 +108,7 @@ export default class PointPresenter {
     }
 
     const resetFormState = () => {
+      
       this.#editPointFormComponent.updateElement({
         point: {
           ...update,
