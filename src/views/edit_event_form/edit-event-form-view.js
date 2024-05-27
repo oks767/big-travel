@@ -150,12 +150,9 @@ export default class EditEventFormView extends AbstractStatefulView {
             ...this._state.point,
             type: newType,
             offers: []
-            
           },
           offers: [...this._state.offers],
-          
         });
-        
       }
     }
   };
