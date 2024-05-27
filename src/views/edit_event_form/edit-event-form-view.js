@@ -1,10 +1,10 @@
 import AbstractStatefulView from '../../framework/view/abstract-stateful-view';
 import {createEditEventFormTemplate} from './edit-event-form.tpl';
 import flatpickr from 'flatpickr';
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 import 'flatpickr/dist/flatpickr.min.css';
-import {DEFAULT_POINT, DEFAULT_OFFERS, DEFAULT_DESTINATION} from './default-data.js'
+import {DEFAULT_POINT, DEFAULT_OFFERS, DEFAULT_DESTINATION} from './default-data.js';
 
 export default class EditEventFormView extends AbstractStatefulView {
   #datepickerFrom = null;
@@ -65,7 +65,7 @@ export default class EditEventFormView extends AbstractStatefulView {
     this.setFormSubmitHandler(this._callback.formSubmit);
     this.setCloseEditFormClickHandler(this._callback.closeEditFormClick);
     this.setDeleteClickHandler(this._callback.deleteClick);
-    
+
   };
 
   #changeBasePriceInputHandler = (evt) => {
@@ -74,10 +74,10 @@ export default class EditEventFormView extends AbstractStatefulView {
     if (evt.data === '-' || evt.data === '+' || evt.data === 'e') {
       evt.target.value = '';
     }
-    
+
     //Запрет нуля первым значением
     evt.target.value = evt.target.value.replace(/^0/, '');
-   
+
     this._setState({
       point: {
         ...this._state.point,
@@ -85,7 +85,7 @@ export default class EditEventFormView extends AbstractStatefulView {
       },
       offers: [...this._state.offers],
     });
-    
+
   };
 
   #changeCityDestinationHandler = (evt) => {
@@ -98,9 +98,9 @@ export default class EditEventFormView extends AbstractStatefulView {
               name: element.name,
               pictures: element.pictures,
               description: element.description,
-              
+
             }
-            
+
           },
           offers: [...this._state.offers],
           destinations: [...this._state.destinations]
@@ -159,18 +159,18 @@ export default class EditEventFormView extends AbstractStatefulView {
 
   //Метод для обработки выбора дополнительных опций
   #pickOffers = (evt) => {
-   
+
     if (evt?.target?.id.includes('event-offer')) {
       let pickedOffers = this._state.point.offers;
       const offerId = evt?.target?.id.replace('event-offer-', '');
-      const offerNumberId = Number(evt?.target?.id.replace('event-offer-', ''))
+      const offerNumberId = Number(evt?.target?.id.replace('event-offer-', ''));
       if (typeof offerNumberId === Number && pickedOffers.includes(offerNumberId)) {
-        const refreshedOffers = pickedOffers.filter((offer) => offer !== offerNumberId)
-        pickedOffers = refreshedOffers
+        const refreshedOffers = pickedOffers.filter((offer) => offer !== offerNumberId);
+        pickedOffers = refreshedOffers;
       } else if (typeof offerNumberId !== Number && !(pickedOffers.includes(offerNumberId))) {
-        pickedOffers.push(offerNumberId)
+        pickedOffers.push(offerNumberId);
       }
-     
+
       if (pickedOffers.includes(offerId)) {
         const refreshedOffers = pickedOffers.filter((offer) => offer !== offerId);
         pickedOffers = refreshedOffers;
@@ -179,14 +179,14 @@ export default class EditEventFormView extends AbstractStatefulView {
       }
 
       this.updateElement({
-        
+
         point: {
           ...this._state.point,
           offers: pickedOffers,
         },
         offers: [...this._state.offers],
       });
-      
+
     }
   };
 
