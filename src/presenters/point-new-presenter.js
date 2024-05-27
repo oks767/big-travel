@@ -76,7 +76,9 @@ export default class PointNewPresenter {
   };
 
   #handleFormSubmit = (update) => {
+
     this.#changeData(
+
       UserAction.ADD_POINT,
       UpdateType.MINOR,
       { ...update.point,},
