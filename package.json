@@ -33,6 +33,10 @@
   },
   "dependencies": {
     "dayjs": "1.11.1",
-    "flatpickr": "4.6.13"
+    "flatpickr": "4.6.13",
+    "uuid": "^9.0.1",
+    "uuid-encoder": "^1.2.0",
+    "uuidjs": "^5.1.0",
+    "uuidv7": "^1.0.0"
   }
 }

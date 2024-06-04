@@ -4,6 +4,7 @@ import {isEscKeyPressed, isDatesEqual, isPricesEqual} from '../utils/utils';
 import {render, replace, remove} from '../framework/render';
 import {UserAction, UpdateType} from '../consts';
 
+
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING',
@@ -31,7 +32,7 @@ export default class PointPresenter {
   init (point, offers, destinations) {
     this.#point = point;
     this.#offers = offers;
-    this.#destinations = destinations;
+    this.#destinations = destinations
 
     //Сохранение свойств в переменные для дальнейшего переиспользования
     const prevPointComponent = this.#pointComponent;

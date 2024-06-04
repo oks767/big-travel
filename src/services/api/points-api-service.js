@@ -1,5 +1,5 @@
 import ApiService from '../../framework/api-service';
-
+import { v4 as uuidv4 } from "uuid";
 const Method = {
   GET: 'GET',
   PUT: 'PUT',
@@ -49,13 +49,20 @@ export default class PointsApiService extends ApiService {
 
   //Метод для адаптирования наименований ключей. Данные, которые отправляются на сервер.
   #adaptToServer = (point) => {
+    
+    
     const adaptedPoint = {...point,
       'base_price': Number(point.basePrice),
       'date_from': point.dateFrom,
       'date_to': point.dateTo,
       'is_favorite': point.isFavorite,
+      'type': point.type,
+      'destination': point.destination.id
     };
 
+    
+    
+    console.log(adaptedPoint);
     delete adaptedPoint.basePrice;
     delete adaptedPoint.dateFrom;
     delete adaptedPoint.dateTo;
