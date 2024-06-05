@@ -6,7 +6,7 @@ const MINUTES_IN_HOUR = 60;
 
 const createEventTemplate = (point, allOffers) => {
   const {basePrice, isFavorite, type, destination, dateFrom, dateTo, offers} = point;
-  
+
   const dateFromToDifference = dayjs(`${dateFrom}`);
   const dateToToDifference = dayjs(`${dateTo}`);
   const timeDaysDifference = dateToToDifference.diff(dateFromToDifference, 'd');

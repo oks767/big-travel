@@ -25,7 +25,7 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
     isSaving,
     isDeleting,
   } = point;
- 
+
   const createButtonName = (idNumber, deleting) => {
     if (!idNumber) {
       return 'Cancel';
@@ -36,13 +36,6 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
   };
 
   const buttonName = createButtonName(id, isDeleting);
-
-  const getDestinationName = (currentDestination) => {
-    if (destination.name !== null) {
-      return currentDestination.name;
-    }
-    return '';
-  };
 
   //Функция для создания списка всех возможных городов (datalist)
   const createDatalistTemplate = (destinations) => {
@@ -220,8 +213,8 @@ const createEditEventFormTemplate = (point, allOffers, allDestinations) => {
               ${type}
             </label>
             <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${
-    destination?.name
-  }" list="destination-list-1" ${
+  destination?.name
+}" list="destination-list-1" ${
   isDisabled ? 'disabled' : ''
 } required>
             <datalist id="destination-list-1">

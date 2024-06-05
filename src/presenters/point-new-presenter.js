@@ -9,15 +9,15 @@ export default class PointNewPresenter {
   #destinations = null;
   #editPointFormComponent = null;
   #destroyCallback = null;
- 
+
 
   constructor(eventsListContainer, changeData, offers, destinations) {
     this.#eventsListContainer = eventsListContainer;
     this.#changeData = changeData;
     this.#offers = offers;
     this.#destinations = destinations;
-    
-    
+
+
   }
 
   init (callback) {
@@ -49,8 +49,8 @@ export default class PointNewPresenter {
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
-  setSaving = (update, offers, destinations, point) => {
-    
+  setSaving = (update, offers, destinations) => {
+
     this.#editPointFormComponent.updateElement({
       point: {
         ...update,
@@ -59,7 +59,7 @@ export default class PointNewPresenter {
       },
       offers: [...offers,],
       destinations: [...destinations,],
-      
+
     });
   };
 
@@ -75,7 +75,7 @@ export default class PointNewPresenter {
         offers: [...offers,],
         destinations: [...destinations,],
       });
-      
+
     };
 
     this.#editPointFormComponent.shake(resetFormState);
