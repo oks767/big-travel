@@ -79,7 +79,7 @@ const createEventTemplate = (point, allOffers) => {
     //Находим объект, совпадающий по типу с текущим типом события и массивом всех доступных офферов к данному типу события
     const pointWithCurrentType = allAvailableOffrers.find((currentOffer) => currentType === currentOffer.type);
     //Формирование шаблона всех доступных дополнительных функций по полученным данным.
-    const resultTemplate = pointWithCurrentType.offers.map((offer) => {
+    const resultTemplate = pointWithCurrentType?.offers.map((offer) => {
       const checkedOffer = pointOffers.includes(offer.id);
       if (checkedOffer) {
         return `<li class="event__offer">

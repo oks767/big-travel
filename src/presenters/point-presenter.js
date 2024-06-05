@@ -4,6 +4,7 @@ import {isEscKeyPressed, isDatesEqual, isPricesEqual} from '../utils/utils';
 import {render, replace, remove} from '../framework/render';
 import {UserAction, UpdateType} from '../consts';
 
+
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING',
