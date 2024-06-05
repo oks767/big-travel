@@ -63,8 +63,8 @@ export const DEFAULT_DESTINATION = [
 
 export const DEFAULT_POINT = {
   type: 'taxi',
-  dateFrom: dayjs().format('DD/MM/YYYY HH:mm:ss'),
-  dateTo: dayjs().add(1, 'd').format('DD/MM/YYYY HH:mm:ss'),
+  dateFrom: dayjs().format('YYYY-MM-DDTHH:mm:ss.msZ'),
+  dateTo: dayjs().add(1, 'd').format('YYYY-MM-DDTHH:mm:ss.msZ'),
   basePrice: 1,
   isFavorite: false,
   offers: [],
