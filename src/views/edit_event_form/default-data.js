@@ -24,7 +24,7 @@ export const DEFAULT_OFFERS = [
 
 export const DEFAULT_DESTINATION = [
   {
-    id: uuidv4(abc),
+   
     name: 'Vien',
     description:
       'Vien, with a beautiful old town, for those who value comfort and coziness.',
@@ -68,8 +68,7 @@ export const DEFAULT_POINT = {
   basePrice: 1,
   isFavorite: false,
   offers: [],
-  destination: {
-    id: uuidv4(abc),
+  destination: { 
     name: 'Vien',
     description:
       'Vien, with a beautiful old town, for those who value comfort and coziness.',

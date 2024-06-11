@@ -16,17 +16,19 @@ export default class EditEventFormView extends AbstractStatefulView {
     destinations,
   ) {
     super();
-
-    if (!offers.length) {
+    
+    if (!offers?.length) {
       point = DEFAULT_POINT;
       offers = DEFAULT_OFFERS;
       destinations = DEFAULT_DESTINATION;
     }
-
+    
+    
     this._state = EditEventFormView.parseDataToState(
       point,
       offers,
-      destinations
+      destinations,
+      
     );
     this.#setInnerHandlers();
     this.#setDateFromPicker();
@@ -37,7 +39,7 @@ export default class EditEventFormView extends AbstractStatefulView {
     return createEditEventFormTemplate(
       this._state.point,
       this._state.offers,
-      this._state.destinations
+      this._state.destinations,
     );
   }
 
@@ -142,6 +144,7 @@ export default class EditEventFormView extends AbstractStatefulView {
         this._state.point,
         this._state.destinations,
         this._state.offers,
+        
       )
     );
   };
@@ -282,7 +285,6 @@ export default class EditEventFormView extends AbstractStatefulView {
         this._state.point,
         this._state.offers,
         this._state.destinations,
-
       )
     );
   };
@@ -299,10 +301,11 @@ export default class EditEventFormView extends AbstractStatefulView {
     destinations: [...destinationsData],
   });
 
-  static parseStateToData = (statePoint, stateOffers, stateDestinations) => {
+  static parseStateToData = (statePoint, stateOffers, stateDestinations, stateId) => {
     const point = { ...statePoint };
     const offers = { ...stateOffers };
     const destinations = { ...stateDestinations };
+    
 
 
     delete point.isDisabled;
@@ -313,6 +316,7 @@ export default class EditEventFormView extends AbstractStatefulView {
       point,
       offers,
       destinations,
+      id
     };
   };
 
