@@ -133,26 +133,6 @@ export default class EditEventFormView extends AbstractStatefulView {
     });
   };
 
-  // #changeCityDestinationHandler = (evt) => {
-  //   evt.preventDefault();
-  //   this._state.destinations.forEach((element) => {
-  //     if (evt.target.value === element.name) {
-  //       this.updateElement({
-  //         point: {
-  //           ...this._state.point,
-  //           destination: {
-  //             id: element.id, // добавила айдишник
-  //             name: element.name,
-  //             pictures: element.pictures,
-  //             description: element.description,
-  //           },
-  //         },
-  //         offers: [...this._state.offers],
-  //         destinations: [...this._state.destinations],
-  //       });
-  //     }
-  //   });
-  // };
   #changeCityDestinationHandler = (evt) => {
     evt.preventDefault();
     const selectedDestination = this._state.destinations.find(
