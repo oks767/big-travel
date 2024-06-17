@@ -121,7 +121,6 @@ export default class EditEventFormView extends AbstractStatefulView {
       evt.target.value = '';
     }
 
-    //Запрет нуля первым значением
     evt.target.value = evt.target.value.replace(/^0/, '');
 
     this._setState({
