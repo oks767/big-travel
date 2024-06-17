@@ -59,7 +59,7 @@ export default class PointsApiService extends ApiService {
       'type': point.type,
       'destination': point.destination.id
     };
-    
+
     delete adaptedPoint.basePrice;
     delete adaptedPoint.dateFrom;
     delete adaptedPoint.dateTo;

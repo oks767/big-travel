@@ -1,10 +1,10 @@
 import Observable from '../framework/observable';
 import {UpdateType} from '../consts';
 
-export default class DestinationsModel extends Observable{
+export default class DestinationsModel extends Observable {
   #destinationsApiService = null;
   #destinations = [];
-  #id = null
+  #id = null;
 
   constructor(destinationsApiService) {
     super();
@@ -12,25 +12,24 @@ export default class DestinationsModel extends Observable{
   }
 
   get destinations() {
-    return this.#destinations, this.#id
+    return this.#destinations;
   }
-  
+
+  get destinationsId() {
+    return this.#id;
+  }
+
+
   init = async () => {
     try {
       const destinations = await this.#destinationsApiService.destinations;
       this.#destinations = destinations;
 
-      const Ids = await this.#destinationsApiService.destinations;
-      this.#id = Ids
-      let id
-      for (let i = 0; i < Ids.length; i++) {
-        id = Ids[i].id
-        console.log(id);
-        return id
+      // Выбираем первый id из полученных данных и присваиваем его #id
+      if (destinations.length > 0) {
+        this.#id = destinations[0].id;
       }
-      
-      
-    } catch(err){
+    } catch (err) {
       this.#destinations = [];
     }
 
