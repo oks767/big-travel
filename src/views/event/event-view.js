@@ -15,9 +15,9 @@ export default class EventView extends AbstractView{
   }
 
   get template() {
-    return createEventTemplate(this.#point, this.#offers);
+    return createEventTemplate(this.#point, this.#offers, this.#destinationName);
   }
-setDestinationName(name) {
+  setDestinationName(name) {
     this.#destinationName = name;
     this.updateElement();
   }

@@ -25,6 +25,7 @@ export default class PointPresenter {
   #offers = null;
   #destinations = null;
   #mode = Mode.DEFAULT;
+  #destinationNames = {}
   
 
   constructor(eventsListContainer, changeData, changeMode, destinationsModel) {
@@ -34,25 +35,25 @@ export default class PointPresenter {
     this.destinationsModel = destinationsModel; // добавляем destinationsModel
   }
 
-  init (point, offers, destinations) {
+  async init (point, offers, destinations) {
     this.#point = point;
     this.#offers = offers;
     this.#destinations = destinations;
     const destinationsModel = new DestinationsModel(new DestinationsApiService
       (END_POINT, AUTHORIZATION));
-    async function someFunction() {
       await destinationsModel.init();
-      const destinationId = destinationsModel.destinationsId;
+      const destinationId = point.destination;
+      
       const destinationName = destinationsModel.getDestinationNameById(destinationId);
-      console.log(destinationName);
-    }
+      this.#destinationNames[point.id] = destinationName
+    
 
-    someFunction();
     const destination = this.destinationsModel.getDestinationNameById(point.destinationId); // Получаем название места назначения по id
     const prevPointComponent = this.#pointComponent;
     const prevEditPointFormComponent = this.#editPointFormComponent;
 
     this.#pointComponent = new EventView(this.#point, this.#offers, destination);
+    console.log(this.#pointComponent);
     this.#editPointFormComponent = new EditEventFormView(this.#point, this.#offers, this.#destinations);
 
     this.#pointComponent.setOpenEditFormClickHandler(this.#handleOpenEditFormClick);
@@ -79,7 +80,9 @@ export default class PointPresenter {
     remove(prevPointComponent);
     remove(prevEditPointFormComponent);
   }
-
+  getDestinationName(pointId) {
+    return this.#destinationNames[pointId] || '';
+  }
   destroy () {
     remove(this.#pointComponent);
     remove(this.#editPointFormComponent);

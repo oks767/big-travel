@@ -4,13 +4,15 @@ import dayjs from 'dayjs';
 const MINUTES_IN_DAY = 1440;
 const MINUTES_IN_HOUR = 60;
 
-const createEventTemplate = (point, allOffers) => {
+const createEventTemplate = (point, allOffers, destinationName) => {
   const {basePrice, isFavorite, type, destination, dateFrom, dateTo, offers} = point;
 
   const dateFromToDifference = dayjs(`${dateFrom}`);
   const dateToToDifference = dayjs(`${dateTo}`);
   const timeDaysDifference = dateToToDifference.diff(dateFromToDifference, 'd');
   const timeMinutesDifference = dateToToDifference.diff(dateFromToDifference, 'm');
+  
+    
   //Функция, позволяющая получить оставшееся количество часов (принимает аргументами разницы в количестве дней и количестве минут между датами)
   const getRestHours = (daysDifference, minutesDifference) => {
     if (daysDifference > 0) {
@@ -70,9 +72,7 @@ const createEventTemplate = (point, allOffers) => {
     ? ' event__favorite-btn--active'
     : '';
 
-  const destinationName = destination === undefined
-    ? ''
-    : destination.name;
+    
 
   //Функция создания разметки выбранных пользователем офферов для текущего типа события
   const createPickedOffrersTemplate = (allAvailableOffrers, currentType, pointOffers) => {

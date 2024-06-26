@@ -20,7 +20,7 @@ export default class DestinationsModel extends Observable {
   }
   getDestinationNameById(id) {
     const destination = this.#destinations.find((item) => item.id === id);
-    console.log(this.#destinations);
+    
     return destination ? destination.name : '';
   }
 
