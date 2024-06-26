@@ -3,7 +3,10 @@ import EditEventFormView from '../views/edit_event_form/edit-event-form-view';
 import {isEscKeyPressed, isDatesEqual, isPricesEqual} from '../utils/utils';
 import {render, replace, remove} from '../framework/render';
 import {UserAction, UpdateType} from '../consts';
-
+import DestinationsModel from '../models/destinations-model';
+import DestinationsApiService from '../services/api/destinations-api-service';
+const AUTHORIZATION = 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=';
+const END_POINT = 'https://20.objects.htmlacademy.pro/big-trip';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
@@ -22,23 +25,34 @@ export default class PointPresenter {
   #offers = null;
   #destinations = null;
   #mode = Mode.DEFAULT;
+  
 
-  constructor(eventsListContainer, changeData, changeMode) {
+  constructor(eventsListContainer, changeData, changeMode, destinationsModel) {
     this.#eventsListContainer = eventsListContainer;
     this.#changeData = changeData;
     this.#changeMode = changeMode;
+    this.destinationsModel = destinationsModel; // добавляем destinationsModel
   }
 
   init (point, offers, destinations) {
     this.#point = point;
     this.#offers = offers;
     this.#destinations = destinations;
+    const destinationsModel = new DestinationsModel(new DestinationsApiService
+      (END_POINT, AUTHORIZATION));
+    async function someFunction() {
+      await destinationsModel.init();
+      const destinationId = destinationsModel.destinationsId;
+      const destinationName = destinationsModel.getDestinationNameById(destinationId);
+      console.log(destinationName);
+    }
 
-    //Сохранение свойств в переменные для дальнейшего переиспользования
+    someFunction();
+    const destination = this.destinationsModel.getDestinationNameById(point.destinationId); // Получаем название места назначения по id
     const prevPointComponent = this.#pointComponent;
     const prevEditPointFormComponent = this.#editPointFormComponent;
 
-    this.#pointComponent = new EventView(this.#point, this.#offers);
+    this.#pointComponent = new EventView(this.#point, this.#offers, destination);
     this.#editPointFormComponent = new EditEventFormView(this.#point, this.#offers, this.#destinations);
 
     this.#pointComponent.setOpenEditFormClickHandler(this.#handleOpenEditFormClick);

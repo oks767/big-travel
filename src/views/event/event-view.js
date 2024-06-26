@@ -4,17 +4,23 @@ import {createEventTemplate} from './event.tpl';
 export default class EventView extends AbstractView{
   #point = null;
   #offers = null;
+  #destinationName = null
 
-  constructor(point, offers) {
+  constructor(point, offers, destinationName) {
     super();
     this.#point = point;
     this.#offers = offers;
+    this.#destinationName = destinationName
+
   }
 
   get template() {
     return createEventTemplate(this.#point, this.#offers);
   }
-
+setDestinationName(name) {
+    this.#destinationName = name;
+    this.updateElement();
+  }
   setOpenEditFormClickHandler(callback) {
     this._callback.openEditFormClick = callback;
     this.element.querySelector('.event .event__rollup-btn').addEventListener('click', this.#openEditFormClickHandler);

@@ -9,6 +9,7 @@ import PointNewPresenter from './point-new-presenter';
 import {filter} from '../utils/filter';
 import {SortType, UserAction, UpdateType, FilterType} from '../consts';
 import {sortPriceDown, sortTimeDown, sortDateDown} from '../utils/utils';
+import DestinationsModel from '../models/destinations-model';
 
 const TimeLimit = {
   LOWER_LIMIT: 200,
@@ -192,7 +193,7 @@ export default class RoutePresenter {
   #renderSort () {
     this.#sortComponent = new SortFormView(this.#currentSortType);
     this.#sortComponent.setSortTypeChangeHandler(this.#handleSortTypeChange);
-    render(this.#sortComponent, this.#sortAndEventsContainer.element);
+    render(this.#sortComponent, this.#sortAndEventsContainer.element)
   }
 
   //Метод отрисовки компонента списка <ul>, в который будут попадать либо точки маршрута либо информационные сообщения как элементы списка
@@ -202,7 +203,8 @@ export default class RoutePresenter {
 
   //Метод отрисовки компонента точки маршрута
   #renderPoint (point, offers, destinations) {
-    const pointPresenter = new PointPresenter(this.#eventsListContainer.element, this.#handleViewAction, this.#handleModeChange);
+    const destinationsModel = new DestinationsModel();
+    const pointPresenter = new PointPresenter(this.#eventsListContainer.element, this.#handleViewAction, this.#handleModeChange, destinationsModel);
     pointPresenter.init(point, offers, destinations);
     this.#pointPresenters.set(point.id, pointPresenter);
   }
